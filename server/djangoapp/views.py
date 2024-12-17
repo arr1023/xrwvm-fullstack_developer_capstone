@@ -14,7 +14,7 @@ import json
 # from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
 from .models import CarMake, CarModel
-from .restapis import get_request, analyze_review_sentiments, post_review
+from .restapis import get_request, analyze_review_sentiments
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -64,7 +64,7 @@ def registration(request):
         username_exist = True
     except Exception as e:
         # If not, simply log this is a new user
-        logger.debug("{} is new user".format(username))
+        logger.debug("{} is new user {e}".format(username))
 
     # If it is a new user
     if not username_exist:
@@ -141,12 +141,10 @@ def get_dealer_details(request, dealer_id):
 
 def add_review(request):
     if (request.user.is_anonymous is False):
-        data = json.loads(request.body)
         try:
             return JsonResponse({"status": 200})
         except Exception as e:
-            return JsonResponse({"status": 401,
-                                 "message": "Error in posting review {e}"})
+            return JsonResponse({"status": 401, "message": "Error in posting review {e}"})
         finally:
             print("add_review request successful!")
     else:
