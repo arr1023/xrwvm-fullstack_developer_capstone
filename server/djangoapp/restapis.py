@@ -37,7 +37,6 @@ def get_request(endpoint, **kwargs):
 # response = get_request('/some-endpoint', param1='value1', param2='value2')
 
 
-
 def analyze_review_sentiments(text):
     request_url = sentiment_analyzer_url+"analyze/"+text
     try:
