@@ -22,9 +22,9 @@ logger = logging.getLogger(__name__)
 # Create your views here.
 
 # Create a `login_request` view to handle sign in request
+
+
 @csrf_exempt
-
-
 def login_user(request):
     # Get username and password from request.POST dictionary
     data = json.loads(request.body)
@@ -39,15 +39,18 @@ def login_user(request):
         data = {"userName": username, "status": "Authenticated"}
     return JsonResponse(data)
 # Create a `logout_request` view to handle sign out request
+
+
 def logout_request(request):
     logout(request)
     data = {"userName": ""}
     return JsonResponse(data)
 
+
 # Create a `registration` view to handle sign up request
+
+
 @csrf_exempt
-
-
 def registration(request):
     context = {}
 
@@ -72,14 +75,14 @@ def registration(request):
         # Create user in auth_user table
         user = User.objects.create_user(
             username=username, first_name=first_name,
-            last_name=last_name,password=password, email=email
+            last_name=last_name, password=password, email=email
         )
         # Login the user and redirect to list page
         login(request, user)
-        data = {"userName": username,"status":"Authenticated"}
+        data = {"userName": username, "status": "Authenticated"}
         return JsonResponse(data)
     else :
-        data = {"userName": username, "error":"Already Registered"}
+        data = {"userName": username, "error": "Already Registered"}
         return JsonResponse(data)
 
 
@@ -131,7 +134,7 @@ def get_dealer_details(request, dealer_id):
         dealership = get_request(endpoint)
         return JsonResponse({"status": 200, "dealer": dealership})
     else:
-        return JsonResponse({"status": 400, "message":"Bad Request"})
+        return JsonResponse({"status": 400, "message": "Bad Request"})
 
 # Create a `add_review` view to submit a review
 
