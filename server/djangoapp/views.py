@@ -63,8 +63,9 @@ def registration(request):
         User.objects.get(username=username)
         username_exist = True
     except Exception as e:
-        # If not, simply log this is a new user
-        logger.debug("{} is new user {e}".format(username))
+    # If not, simply log that this is a new user
+        logger.debug(f"{username} is a new user: {e}")
+
 
     # If it is a new user
     if not username_exist:
@@ -140,13 +141,15 @@ def get_dealer_details(request, dealer_id):
 
 
 def add_review(request):
-    if (request.user.is_anonymous is False):
+    if not request.user.is_anonymous:
         data = json.loads(request.body)
         try:
+            # Assuming the post_review function call was missing and needs to be included
+            response = post_review(data)
             return JsonResponse({"status": 200})
         except Exception as e:
             return JsonResponse({"status": 401,
-                                 "message": "Error in posting review {e}"})
+                                 "message": f"Error in posting review: {e}"})
         finally:
             print("add_review request successful!")
     else:
