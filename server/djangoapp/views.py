@@ -14,7 +14,7 @@ import json
 # from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
 from .models import CarMake, CarModel
-from .restapis import get_request, analyze_review_sentiments
+from .restapis import get_request, analyze_review_sentiments, post_review
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -63,9 +63,9 @@ def registration(request):
         User.objects.get(username=username)
         username_exist = True
     except Exception as e:
-    # If not, simply log that this is a new user
+        # If not, simply log that this is a new user
         logger.debug(f"{username} is a new user: {e}")
-    # If it is a new user
+        # If it is a new user
     if not username_exist:
         # Create user in auth_user table
         user = User.objects.create_user(
