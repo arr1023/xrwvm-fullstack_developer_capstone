@@ -65,8 +65,6 @@ def registration(request):
     except Exception as e:
     # If not, simply log that this is a new user
         logger.debug(f"{username} is a new user: {e}")
-
-
     # If it is a new user
     if not username_exist:
         # Create user in auth_user table
@@ -144,7 +142,6 @@ def add_review(request):
     if not request.user.is_anonymous:
         data = json.loads(request.body)
         try:
-            # Assuming the post_review function call was missing and needs to be included
             response = post_review(data)
             return JsonResponse({"status": 200})
         except Exception as e:
