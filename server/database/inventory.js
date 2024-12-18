@@ -1,4 +1,4 @@
-/* jshint moz: true */
+/*jshint esversion: 8 */
 const { Int32 } = require('mongodb');
 const mongoose = require('mongoose');
 
